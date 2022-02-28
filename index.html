@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="gameMode popup">
+        <h1>Select a game mode</h1>
+        <button id="player" data-gamemode="player">1 vs 1</button>
+        <button id="bot" data-gamemode="bot">Bot</button>
+    </div>
+    <div class="startGame popup d-none">
+        <form>
+            <div>
+                <span>Player 1</span>
+
+                <input type="text" id="playerOne" maxlength="16">
+            </div>
+            <div>
+                <span>Player 2</span>
+                <input type="text" id="playerTwo" maxlength="16">
+            </div>
+            <div>  
+                <button class="btnStart">Start game</button>
+            </div>
+        </form>
+    </div>
+    <div class="winGame popup d-none">
+        <h1 class="win">Win&nbsp;</h1>
+        <h1 class="playerName"></h1>
+    </div>
+
+    <div class="container">
+        <div class="boardWrapper">
+
+        <div class="players">
+            <div class="resultsSection">
+                <h3>Scoreboard</h3>
+                
+                <div class="playerOne active">
+                    <span id="one"></span>
+                    <span> - </span>
+                    <span class="counterWinOne">0</span>
+                </div>
+                <div class="playerTwo">
+                    <span id="two"></span>
+                    <span> - </span>
+                    <span class="counterWinTwo">0</span>
+                </div>
+                <div class="playerTwo">
+                    <span id="draw">Draw</span>
+                    <span> - </span>
+                    <span class="counterDraw">0</span>
+                </div>
+            </div>
+            <div class="optionSection">
+                <button id="btnColor"></button>
+                <button id="btnGameMode">Game mode</button>
+            </div>
+        </div>
+        <div class="board">
+            <div class="box" data-type="0"></div>
+            <div class="box" data-type="1"></div>
+            <div class="box" data-type="2"></div>
+            <div class="box" data-type="3"></div>
+            <div class="box" data-type="4"></div>
+            <div class="box" data-type="5"></div>
+            <div class="box" data-type="6"></div>
+            <div class="box" data-type="7"></div>
+            <div class="box" data-type="8"></div>
+        </div>
+    </div>
+</div>
+    <div class="endGame"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
