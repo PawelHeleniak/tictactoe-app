@@ -52,8 +52,8 @@ button:hover{
 }
 .popup {
   background: var(--primaryColor);
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   position: absolute;
   top: 0;
   left: 0;

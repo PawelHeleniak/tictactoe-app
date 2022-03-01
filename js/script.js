@@ -158,6 +158,10 @@ function placeShape(index, e) {
 }
 
 function checkResult(index, shape, e) {
+  if(index === undefined || shape === undefined){
+    return false
+  }
+  
   if (shape === "circle") {
     checkCircle.push(index);
   } else {
