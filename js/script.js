@@ -32,7 +32,7 @@ const winNumber = [
 let checkCircle = [];
 let checkCross = [];
 
-let counterClick = "";
+let counterClick = 0;
 
 //Check game mode
 const gameMode = document.querySelector(".gameMode");
@@ -106,14 +106,14 @@ function checkValue(e) {
   }
 }
 
-// Page reversal
+// Go to the previous page
 const backArrow = document.querySelector(".backArrow")
 
-function reversalChoice() {
+function previousPage() {
   gameMode.classList.remove("d-none")
   startGame.classList.add("d-none")
 }
-backArrow.addEventListener("click", reversalChoice)
+backArrow.addEventListener("click", previousPage)
 
 // Handle game
 function handleGame(index, e) {
@@ -123,7 +123,7 @@ function handleGame(index, e) {
     publishResault(getResult);
   }
   if (gameValue.type === "bot") {
-      botAi(getShape.shape);
+      botAi(getShape.shape, getResult);
   }
 }
 getBoxAll.forEach((box, index) => {
@@ -138,16 +138,19 @@ function placeShape(index, e) {
   ) {
     return false;
   }
-  
+ 
   counterClick++;
 
-  document.querySelector(".playerTwo").classList.toggle("active");
-  document.querySelector(".playerOne").classList.toggle("active");
-
-  if (counterClick % 2 != 0) {
+  if (counterClick % 2 !== 0) {
     e.target.classList.add("circle");
+
+    document.querySelector(".playerTwo").classList.add("active");
+    document.querySelector(".playerOne").classList.remove("active");
   } else {
     e.target.classList.add("cross");
+
+    document.querySelector(".playerTwo").classList.remove("active");
+    document.querySelector(".playerOne").classList.add("active");
   }
   
   let shape = e.target.classList[1];
@@ -163,11 +166,11 @@ function checkResult(index, shape, e) {
 
   let result = "";
 
-  winNumber.forEach((element) => {
-    let winO = element.every(function (val) {
+  winNumber.forEach(e => {
+    let winO = e.every(function (val) {
       return checkCircle.indexOf(val) !== -1;
     });
-    let winX = element.every(function (val) {
+    let winX = e.every(function (val) {
       return checkCross.indexOf(val) !== -1;
     });
 
@@ -219,20 +222,24 @@ function publishResault(result) {
 }
 
 //Ai
-const botAi = shape => {
+const botAi = (shape,result) => {
+  //artificial time delay
+  let delay = 100;
+
   if (shape === "circle") {
     const move = aiMove()
     setTimeout(() => {
-      if (checkCross.length + checkCircle.length !== 9) {
+      if (checkCross.length + checkCircle.length !== 9 && !result) {
         getBoxAll[move].click();
       }
-    }, 100);
+    }, delay);
   }
 }
 
 function aiMove() {
   let move = "";
   let block = false;
+  let winMove = false;
 
   winNumber.forEach((e) => {
     let activeMovmentBot = e.filter((x) => !checkCross.includes(x));
@@ -245,9 +252,10 @@ function aiMove() {
           return false;
         } else {
           move = value;
+          winMove = true;
         }
       }
-    } else if (activeMovmentPlayer.length === 1) {
+    } else if (activeMovmentPlayer.length === 1 && !winMove) {
       let index = activeMovmentPlayer.values();
       for (const value of index) {
         if (checkCross.includes(value) || checkCircle.includes(value)) {
@@ -258,8 +266,8 @@ function aiMove() {
         }
       }
     } else if (
-      (activeMovmentBot.length === 3 && !block) ||
-      (activeMovmentBot.length === 2 && !block)
+      (activeMovmentBot.length === 3 && !block && !winMove) ||
+      (activeMovmentBot.length === 2 && !block && !winMove)
     ) {
       let index = activeMovmentBot.values();
       for (const value of index) {
@@ -276,10 +284,17 @@ function aiMove() {
 }
 
 const playNext = (e) => {
+  //clear array
   checkCircle = [];
   checkCross = [];
 
-  if (document.querySelector(".winGame").classList.contains("d-none") != true) {
+  //funtion for placeShape, determines what mark starts
+  counterClick = 0;
+  if(gameSummary.games%2!==0){
+    counterClick = 1
+  }
+
+  if (document.querySelector(".winGame").classList.contains("d-none") !== true) {
     document.querySelector(".winGame").classList.add("d-none");
     getBoxAll.forEach((element) => {
       element.classList.remove("circle");
@@ -287,7 +302,7 @@ const playNext = (e) => {
     });
   }
 
-  //Adding first move
+  //adding first move
   if(gameValue.type === "bot" && gameSummary.games %2 !== 0 ){
     document.querySelector("[data-type='4']").click()
   }
@@ -351,7 +366,7 @@ const restartGame = () => {
   checkCircle = [];
   checkCross = [];
 
-  counterClick = "";
+  counterClick = 0;
 
   gameValue.type = "";
 

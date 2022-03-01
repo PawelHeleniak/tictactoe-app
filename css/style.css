@@ -109,6 +109,10 @@ button:hover{
 }
 .returnPage span{
   cursor: pointer;
+  transition: 0.2s ease;
+}
+.returnPage span:hover{
+  color: var(--btnColor);
 }
 /* ----- */
 
