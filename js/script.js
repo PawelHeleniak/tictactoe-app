@@ -64,7 +64,7 @@ botMode.addEventListener("click", choiceMode);
 playerMode.addEventListener("click", choiceMode);
 
 //Player nick validation
-let checkPlayerPopup = document.querySelector(".btnStart");
+let checkPlayerPopup = document.getElementById("btnStart")
 
 const validationPlayer = e => {
   e.preventDefault();
@@ -106,6 +106,15 @@ function checkValue(e) {
     e.target.style.border = "1px solid red";
   }
 }
+
+// Page reversal
+const backArrow = document.querySelector(".backArrow")
+
+function reversalChoice() {
+  gameMode.classList.remove("d-none")
+  startGame.classList.add("d-none")
+}
+backArrow.addEventListener("click", reversalChoice)
 
 // Handle game
 function handleGame(index, e) {

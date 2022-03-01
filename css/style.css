@@ -98,9 +98,17 @@ button:hover{
   font-size: 20px;
   border: 1px solid var(--secondaryColor);
 }
-.startGame .btnStart{
+.startGame #btnStart{
   width: 100%;
   margin-top: 15px;
+}
+.returnPage{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.returnPage span{
+  cursor: pointer;
 }
 /* ----- */
 
