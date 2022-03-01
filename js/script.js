@@ -230,10 +230,10 @@ const botAi = (shape,result) => {
   //artificial time delay
   let delay = 100;
 
-  if (shape === "circle") {
+  if (shape === "circle" && result !== "draw") {
     const move = aiMove()
     setTimeout(() => {
-      if (checkCross.length + checkCircle.length !== 9 && !result) {
+      if (checkCross.length + checkCircle.length !== 9) {
         getBoxAll[move].click();
       }
     }, delay);
@@ -283,6 +283,13 @@ function aiMove() {
       }
     }
   });
+
+  if(!move){
+    let boxAll = [...getBoxAll]
+
+    let findClearBox = boxAll.find(e=>!e.classList.contains("cross") && !e.classList.contains("circle"))
+    move = findClearBox.dataset.type
+  }
 
   return move;
 }
@@ -357,7 +364,6 @@ const btnGameMode = document.getElementById("btnGameMode");
 //Clearing game value
 const restartGame = () => {
   gameMode.classList.remove("d-none");
-  startGame.classList.remove("d-none");
 
   playerOne.value = "";
   playerTwo.value = "";
