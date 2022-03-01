@@ -73,7 +73,6 @@ const validationPlayer = e => {
     return false;
   }
   if (e.keyCode === 13 || e.type === "click") {
-    console.log(e);
     if (playerOne.value.trim() !== "" && playerTwo.value.trim() !== "") {
       gameValue.playerOne = playerOne.value;
       gameValue.playerTwo = playerTwo.value;
@@ -138,24 +137,25 @@ function placeShape(index, e) {
     e.target.classList.contains("board")
   ) {
     return false;
-  } else {
-    counterClick++;
-
-    document.querySelector(".playerTwo").classList.toggle("active");
-    document.querySelector(".playerOne").classList.toggle("active");
-
-    if (counterClick % 2 != 0) {
-      e.target.classList.add("circle");
-    } else {
-      e.target.classList.add("cross");
-    }
   }
+  
+  counterClick++;
+
+  document.querySelector(".playerTwo").classList.toggle("active");
+  document.querySelector(".playerOne").classList.toggle("active");
+
+  if (counterClick % 2 != 0) {
+    e.target.classList.add("circle");
+  } else {
+    e.target.classList.add("cross");
+  }
+  
   let shape = e.target.classList[1];
   return { index, shape };
 }
 
 function checkResult(index, shape, e) {
-  if (shape == "circle") {
+  if (shape === "circle") {
     checkCircle.push(index);
   } else {
     checkCross.push(index);
@@ -171,9 +171,9 @@ function checkResult(index, shape, e) {
       return checkCross.indexOf(val) !== -1;
     });
 
-    if (winO == true) {
+    if (winO === true) {
       result = "circle";
-    } else if (winX == true) {
+    } else if (winX === true) {
       result = "cross";
     }
   });
@@ -221,62 +221,59 @@ function publishResault(result) {
 //Ai
 const botAi = shape => {
   if (shape === "circle") {
+    const move = aiMove()
     setTimeout(() => {
-      let move = "";
-      let block = false;
-
-      winNumber.forEach((e) => {
-        let activeMovment = e.filter((x) => !checkCross.includes(x));
-        let activeMovmentPlayer = e.filter((x) => !checkCircle.includes(x));
-
-        if (activeMovment.length === 1) {
-          let inet = activeMovment.values();
-
-          for (const value of inet) {
-            if (checkCross.includes(value) || checkCircle.includes(value)) {
-              return false;
-            } else {
-              move = value;
-            }
-          }
-        } else if (activeMovmentPlayer.length === 1) {
-          let inet = activeMovmentPlayer.values();
-
-          for (const value of inet) {
-            if (checkCross.includes(value) || checkCircle.includes(value)) {
-              return false;
-            } else {
-              move = value;
-              block = true;
-            }
-          }
-        } else if (activeMovment.length === 3 && !block) {
-          let inet = activeMovment.values();
-          for (const value of inet) {
-            if (checkCross.includes(value) || checkCircle.includes(value)) {
-              return false;
-            } else {
-              move = value;
-            }
-          }
-        } 
-        else {
-          for (const value of e) {
-            if (checkCross.includes(value) || checkCircle.includes(value)) {
-              return false;
-            } else {
-              move = value
-            }
-          }
-        }
-      });
-      console.log("move",move);
       if (checkCross.length + checkCircle.length !== 9) {
         getBoxAll[move].click();
       }
     }, 100);
   }
-};
+}
+
+function aiMove() {
+  let move = "";
+  let block = false;
+
+  winNumber.forEach((e) => {
+    let activeMovmentBot = e.filter((x) => !checkCross.includes(x));
+    let activeMovmentPlayer = e.filter((x) => !checkCircle.includes(x));
+
+    if (activeMovmentBot.length === 1) {
+      let index = activeMovmentBot.values();
+      for (const value of index) {
+        if (checkCross.includes(value) || checkCircle.includes(value)) {
+          return false;
+        } else {
+          move = value;
+        }
+      }
+    } else if (activeMovmentPlayer.length === 1) {
+      let index = activeMovmentPlayer.values();
+      for (const value of index) {
+        if (checkCross.includes(value) || checkCircle.includes(value)) {
+          return false;
+        } else {
+          move = value;
+          block = true;
+        }
+      }
+    } else if (
+      (activeMovmentBot.length === 3 && !block) ||
+      (activeMovmentBot.length === 2 && !block)
+    ) {
+      let index = activeMovmentBot.values();
+      for (const value of index) {
+        if (checkCross.includes(value) || checkCircle.includes(value)) {
+          return false;
+        } else {
+          move = value;
+        }
+      }
+    }
+  });
+
+  return move;
+}
 
 const playNext = (e) => {
   checkCircle = [];
