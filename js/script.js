@@ -354,7 +354,9 @@ window.onload = function () {
   let getTextColor = localStorage.getItem("textColor");
   let getTheme = localStorage.getItem("theme");
 
-  btnColorMode.textContent = getTheme;
+  if(getTheme !== null){
+    btnColorMode.textContent = getTheme;
+  }
   document.documentElement.style.setProperty("--primaryColor", getBgColor);
   document.documentElement.style.setProperty("--secondaryColor", getTextColor);
 };
