@@ -2,31 +2,39 @@
   margin: 0;
   padding: 0;
 }
+
 :root {
   --primaryColor: #222;
   --secondaryColor: #fff;
   --btnColor: #0093d2;
 }
+
 body {
   background: var(--primaryColor);
   color: var(--secondaryColor) !important;
 }
+
 h1 {
   font-size: 64px;
 }
+
 h2 {
   font-size: 48px;
 }
+
 h3 {
   font-size: 32px;
 }
+
 h4 {
   font-size: 24px;
 }
+
 h5 {
   font-size: 16px;
 }
-button{
+
+button {
   background-color: var(--btnColor);
   min-width: 200px;
   text-decoration: none;
@@ -40,9 +48,11 @@ button{
   transition: ease 0.2s;
   border: none;
 }
-button:hover{
+
+button:hover {
   box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
 }
+
 .loader {
   background-color: violet;
   z-index: 10;
@@ -50,6 +60,7 @@ button:hover{
   height: 100%;
   width: 100%;
 }
+
 .popup {
   background: var(--primaryColor);
   width: 100vw;
@@ -64,16 +75,20 @@ button:hover{
   flex-direction: column;
   color: var(--secondaryColor);
 }
+
 .popup.winGame {
   flex-direction: row;
   cursor: pointer;
 }
+
 .winGame h1 {
   margin: 0;
 }
+
 .gameMode {
   z-index: 2;
 }
+
 .gameMode h1 {
   text-align: center;
   margin-bottom: 10px;
@@ -83,37 +98,45 @@ button:hover{
 .startGame {
   z-index: 1;
 }
+
 .startGame div {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 10px;
 }
+
 .startGame span {
   font-size: 2rem;
   margin-bottom: 5px;
 }
+
 .startGame input {
   padding: 10px;
   font-size: 20px;
   border: 1px solid var(--secondaryColor);
 }
-.startGame #btnStart{
+
+.startGame #btnStart {
   width: 100%;
   margin-top: 15px;
 }
-.returnPage{
+
+.returnPage {
   position: absolute;
   top: 0;
   left: 0;
 }
-.returnPage span{
+
+.returnPage span {
   cursor: pointer;
   transition: 0.2s ease;
 }
-.returnPage span:hover{
+
+.returnPage span:hover {
   color: var(--btnColor);
 }
+
 /* ----- */
 
 .container {
@@ -122,9 +145,11 @@ button:hover{
   justify-content: center;
   height: 100vh;
 }
+
 .boardWrapper {
   display: flex;
 }
+
 .players {
   border: 3px solid;
   margin-right: 20px;
@@ -134,16 +159,20 @@ button:hover{
   justify-content: space-between;
   padding: 15px;
 }
+
 .players h3 {
   text-align: center;
 }
+
 .resultsSection {
   margin-bottom: 15px;
   line-height: 1.3;
 }
+
 .resultsSection div.active {
   color: var(--btnColor);
 }
+
 .optionSection {
   display: flex;
   flex-wrap: wrap;
@@ -151,19 +180,23 @@ button:hover{
   flex-direction: column;
   margin: 0;
 }
-.optionSection button{
+
+.optionSection button {
   margin: 15px 0 0 0;
   text-transform: none;
   padding: 7px 0;
   width: 100%;
 }
-.optionSection button:last-child{
+
+.optionSection button:last-child {
   margin-bottom: 0;
 }
+
 .board {
   display: grid;
   grid-template-columns: repeat(3, auto);
 }
+
 .board .box {
   border: 3px solid var(--secondaryColor);
   position: relative;
@@ -171,98 +204,164 @@ button:hover{
   width: 150px;
   height: 150px;
 }
+
 .box:nth-child(3n + 1) {
   border-left: none;
   border-right: 3px solid;
 }
+
 .box:nth-child(3n) {
   border-right: none;
 }
+
 .box:nth-child(1),
 .box:nth-child(2),
 .box:nth-child(3) {
   border-top: none;
 }
+
 .box:nth-child(7),
 .box:nth-child(8),
 .box:nth-child(9) {
   border-bottom: none;
 }
+
 .box.cross:after {
   content: "";
   position: absolute;
   height: 15px;
   width: 100%;
-  background: var(--secondaryColor);
-  transform: translate(0, -50%) rotate(45deg);
+  background-color: var(--primaryColor);
+  transform: scale(1.2) translate(0, -50%) rotate(45deg);
   top: 50%;
+  animation: drawingCrossFirst 1s forwards;
 }
+
 .box.cross:before {
   content: "";
   position: absolute;
   height: 15px;
   width: 100%;
-  background: var(--secondaryColor);
-  transform: translate(0, -50%) rotate(135deg);
+  background-color: var(--primaryColor);
+  transform: scale(1.2) translate(0, -50%) rotate(-45deg);
   top: 50%;
+  animation: drawingCrossSecound 1s forwards;
+  animation-delay: 0.5s;
 }
+
 .box.circle {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .box.circle:after {
   content: "";
   position: absolute;
   border-radius: 50%;
-  border: 15px solid var(--secondaryColor);
+  border: 15px solid var(--primaryColor);
   height: 65%;
   width: 65%;
+  -webkit-animation-name: drawingCircleTop, drawingCircleRight, drawingCircleBottom, drawingCircleLeft;
+  -webkit-animation-duration: 0.1s;
+  -webkit-animation-delay: 0s, 0.2s, 0.4s, 0.6s;
+  -webkit-animation-fill-mode: forwards;
 }
+
 .d-none {
   display: none !important;
 }
+
 .player {
   display: flex;
   flex-direction: column;
 }
+
 .player span {
   font-size: 20px;
 }
 
-/* Media */
+/* --- Media ---*/
 @media (max-width: 992px) {
   .boardWrapper {
     flex-direction: column-reverse;
   }
+
   .players {
     margin: 0;
     margin-top: 20px;
   }
 }
+
 @media (max-width: 620px) {
   .board .box {
     width: 130px;
     height: 130px;
   }
-  .gameMode h1{
+
+  .gameMode h1 {
     font-size: 48px;
   }
 }
+
 @media (max-width: 420px) {
   .board .box {
     width: 100px;
     height: 100px;
   }
+
   .box.circle:after {
     height: 60%;
     width: 60%;
   }
-  .box.circle:after{
+
+  .box.circle:after {
     border: 12px solid var(--secondaryColor);
   }
+
   .box.cross:after,
-  .box.cross:before{
+  .box.cross:before {
     height: 12px;
+  }
+}
+
+/* --- Keyframe --- */
+/* Circle */
+@keyframes drawingCircleTop {
+  100% {
+    border-top: 15px solid var(--secondaryColor);
+  }
+}
+
+@keyframes drawingCircleRight {
+  100% {
+    border-right: 15px solid var(--secondaryColor);
+  }
+}
+
+@keyframes drawingCircleBottom {
+  100% {
+    border-bottom: 15px solid var(--secondaryColor);
+  }
+}
+
+@keyframes drawingCircleLeft {
+  100% {
+    border-left: 15px solid var(--secondaryColor);
+  }
+}
+
+/* Cross */
+@keyframes drawingCrossFirst {
+  100% {
+    background-color: var(--secondaryColor);
+    transform: scale(1) translate(0, -50%) rotate(45deg);
+  }
+}
+
+@keyframes drawingCrossSecound {
+  100% {
+    background-color: var(--secondaryColor);
+    transform: scale(1) translate(0, -50%) rotate(-45deg);
   }
 }

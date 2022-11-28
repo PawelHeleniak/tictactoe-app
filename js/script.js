@@ -51,7 +51,7 @@ const choiceMode = (e) => {
 
     document.querySelector("#one").textContent = `${gameValue.playerOne}(o)`;
     document.querySelector("#two").textContent = `${gameValue.playerTwo}(x)`;
-  }else{
+  } else {
     startGame.classList.remove("d-none");
   }
 
@@ -68,7 +68,7 @@ let checkPlayerPopup = document.getElementById("btnStart")
 
 const validationPlayer = e => {
   e.preventDefault();
-  
+
   if (startGame.classList.contains("d-none")) {
     return false;
   }
@@ -123,7 +123,7 @@ function handleGame(index, e) {
     publishResault(getResult);
   }
   if (gameValue.type === "bot") {
-      botAi(getShape.shape, getResult);
+    botAi(getShape.shape, getResult);
   }
 }
 getBoxAll.forEach((box, index) => {
@@ -138,7 +138,7 @@ function placeShape(index, e) {
   ) {
     return false;
   }
- 
+
   counterClick++;
 
   if (counterClick % 2 !== 0) {
@@ -152,16 +152,16 @@ function placeShape(index, e) {
     document.querySelector(".playerTwo").classList.remove("active");
     document.querySelector(".playerOne").classList.add("active");
   }
-  
+
   let shape = e.target.classList[1];
   return { index, shape };
 }
 
 function checkResult(index, shape, e) {
-  if(index === undefined || shape === undefined){
+  if (index === undefined || shape === undefined) {
     return false
   }
-  
+
   if (shape === "circle") {
     checkCircle.push(index);
   } else {
@@ -226,7 +226,7 @@ function publishResault(result) {
 }
 
 //Ai
-const botAi = (shape,result) => {
+const botAi = (shape, result) => {
   //artificial time delay
   let delay = 100;
 
@@ -284,10 +284,10 @@ function aiMove() {
     }
   });
 
-  if(!move){
+  if (!move) {
     let boxAll = [...getBoxAll]
 
-    let findClearBox = boxAll.find(e=>!e.classList.contains("cross") && !e.classList.contains("circle"))
+    let findClearBox = boxAll.find(e => !e.classList.contains("cross") && !e.classList.contains("circle"))
     move = findClearBox.dataset.type
   }
 
@@ -301,7 +301,7 @@ const playNext = (e) => {
 
   //funtion for placeShape, determines what mark starts
   counterClick = 0;
-  if(gameSummary.games%2!==0){
+  if (gameSummary.games % 2 !== 0) {
     counterClick = 1
   }
 
@@ -314,7 +314,7 @@ const playNext = (e) => {
   }
 
   //adding first move
-  if(gameValue.type === "bot" && gameSummary.games %2 !== 0 ){
+  if (gameValue.type === "bot" && gameSummary.games % 2 !== 0) {
     document.querySelector("[data-type='4']").click()
   }
 };
@@ -354,7 +354,7 @@ window.onload = function () {
   let getTextColor = localStorage.getItem("textColor");
   let getTheme = localStorage.getItem("theme");
 
-  if(getTheme !== null){
+  if (getTheme !== null) {
     btnColorMode.textContent = getTheme;
   }
   document.documentElement.style.setProperty("--primaryColor", getBgColor);
@@ -389,7 +389,7 @@ const restartGame = () => {
       box.classList.remove("cross");
     }
   });
-  
+
   document.querySelector(".counterWinOne").textContent = 0;
   document.querySelector(".counterWinTwo").textContent = 0;
   document.querySelector(".counterDraw").textContent = 0;
